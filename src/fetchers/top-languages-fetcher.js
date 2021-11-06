@@ -9,19 +9,21 @@ const fetcher = (variables, token) => {
       query userInfo($login: String!) {
         user(login: $login) {
           # fetch only owner repos & not forks
- repositories(isFork: false, first: 100) {
-      nodes {
-        languages(first: 1) {
-          edges {
-            size
-            node {
-              color
-              name
+            repositories(isFork: false, first: 100, orderBy: {field: UPDATED_AT, direction: DESC}) {
+              nodes {
+                name
+                updatedAt
+                languages(first: 5, orderBy: {field: SIZE, direction: DESC}) {
+                  nodes {
+                    name
+                  }
+                }
+                primaryLanguage {
+                  name
+                }
+              }
             }
           }
-        }
-      }
-    }
         }
       }
       `,
