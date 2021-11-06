@@ -8,17 +8,21 @@ const fetcher = (variables, token) => {
       query: `
       query userInfo($login: String!) {
         user(login: "ThisIsZuka") {
-          repositories(ownerAffiliations: OWNER, isFork: false, first: 100) {
+          repositories(ownerAffiliations: OWNER, isFork: false, first: 100,after:"Y3Vyc29yOnYyOpHOD4zl4g==") {
             nodes {
-              name
               languages(first: 10, orderBy: {field: SIZE, direction: DESC}) {
                 edges {
                   size
                   node {
+                    color
                     name
                   }
                 }
               }
+            }
+            pageInfo {
+              endCursor
+              hasNextPage
             }
           }
         }
